@@ -1,0 +1,90 @@
+---
+  # tasks: Install zabbix-server version 3.0.2
+  #
+  #
+
+
+  - name: "Download & Install deb package"
+    apt:
+      deb: http://repo.zabbix.com/zabbix/3.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_3.0-2+xenial_all.deb
+      state: present
+
+  - name: "Install Zabbix-server and Zabbix-frontend"
+    apt:
+      name: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - php-bcmath
+      - php-mbstring
+      - php-xmlwriter
+      - php-xmlreader
+      - zabbix-server-mysql
+      - zabbix-frontend-php
+
+  - name: "Create initial Zabbix MySQL database"
+    mysql_db:
+      name: "{{ zbx_dbname }}"
+      encoding: utf8
+      state: present
+      login_user: "{{ MySQL_ROOT_ACCOUNT }}"
+      login_password: "{{ MySQL_ROOT_PASSWORD }}"
+    notify:
+      - import zabbix-dbschema
+
+  - name: "Create Zabbix MySQL database user"
+    mysql_user:
+      name: "{{ zbx_dbuser }}"
+      password: "{{ zbx_dbpass }}"
+      priv: "{{zbx_dbname }}.*:ALL,GRANT"
+      state: present
+      login_user: "{{ MySQL_ROOT_ACCOUNT }}"
+      login_password: "{{ MySQL_ROOT_PASSWORD }}"
+
+  - name: "Copy template zabbix_server.conf.j2 to /etc/zabbix/zabbix_server.conf"
+    template:
+      src: zabbix_server.conf.j2
+      dest: /etc/zabbix/zabbix_server.conf
+      owner: root
+      group: root
+      mode: "u=rw,g=r,o=r"
+      backup: yes
+    notify:
+      - restart zabbix-server
+
+  - name: "Copy template apache.conf.j2 to /etc/zabbix/apache.conf"
+    template:
+      src: apache.conf.j2
+      dest: /etc/zabbix/apache.conf
+      owner: root
+      group: root
+      mode: "u=rw,g=r,o=r"
+      backup: yes
+    notify:
+      - restart apache2
+
+  - name: "Copy template zabbix.conf.php.j2 to /etc/zabbix/web/zabbix.conf.php"
+    template:
+      src: zabbix.conf.php.j2
+      dest: /etc/zabbix/web/zabbix.conf.php
+      owner: www-data
+      group: www-data
+      mode: "u=rw,g=r,o=r"
+      backup: yes
+
+  - name: "Allow traffic from Zabbix server to Zabbix Agent (Passive) on port 10050/tcp"
+    ufw:
+      rule: allow
+      port: 10050
+      proto: tcp
+
+  - name: "Allow traffic from Zabbix agent to Zabbix server (Active) on port 10051/tcp"
+    ufw:
+      rule: allow
+      port: 10051
+      proto: tcp
+
+  - name: "Allow traffic from Zabbix frontend on port 80/tcp"
+    ufw:
+      rule: allow
+      name: Apache

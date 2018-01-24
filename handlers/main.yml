@@ -1,0 +1,23 @@
+---
+  # handlers: Zabbix Server 3.0.4
+  #
+
+  - name: "import zabbix-dbschema"
+    mysql_db:
+      name: zabbix
+      state: import
+      target: /usr/share/doc/zabbix-server-mysql/create.sql.gz
+      login_user: "{{ MySQL_ROOT_ACCOUNT }}"
+      login_password: "{{ MySQL_ROOT_PASSWORD }}"
+
+  - name: "restart zabbix-server"
+    service:
+      name: zabbix-server
+      state: restarted
+      enabled: yes
+
+  - name: "restart apache2"
+    service:
+      name: apache2
+      state: restarted
+      enabled: yes

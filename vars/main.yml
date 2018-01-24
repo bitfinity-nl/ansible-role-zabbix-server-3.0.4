@@ -1,0 +1,13 @@
+---
+  # vars: Install zabbix-server version 3.0.2
+  #
+  #
+
+  # zabbix_server.conf.j2
+  zbx_dbhost: localhost
+  zbx_dbname: zabbix
+  zbx_dbuser: zabbix
+  zbx_dbpass: Zabb1XDb
+
+  # zabbix apache2.conf ntp_timezone
+  zbx_timezone: Europe/Amsterdam  
