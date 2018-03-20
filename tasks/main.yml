@@ -21,6 +21,7 @@
       - php-xmlreader
       - zabbix-server-mysql
       - zabbix-frontend-php
+      - snmp-mibs-downloader
 
   - name: "Create initial Zabbix MySQL database"
     mysql_db:

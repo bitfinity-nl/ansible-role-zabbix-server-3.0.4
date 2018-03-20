@@ -3,7 +3,7 @@
 global $DB;
 
 $DB['TYPE']     = 'MYSQL';
-$DB['SERVER']   = 'localhost';
+$DB['SERVER']   = '127.0.0.1';
 $DB['PORT']     = '0';
 $DB['DATABASE'] = '{{ zbx_dbname }}';
 $DB['USER']     = '{{ zbx_dbuser }}';
@@ -12,8 +12,8 @@ $DB['PASSWORD'] = '{{ zbx_dbpass }}';
 // Schema name. Used for IBM DB2 and PostgreSQL.
 $DB['SCHEMA'] = '';
 
-$ZBX_SERVER      = 'localhost';
+$ZBX_SERVER      = '127.0.0.1';
 $ZBX_SERVER_PORT = '10051';
-$ZBX_SERVER_NAME = 'nl-test-zbx';
+$ZBX_SERVER_NAME = '{{ ansible_hostname }}';
 
 $IMAGE_FORMAT_DEFAULT = IMAGE_FORMAT_PNG;
