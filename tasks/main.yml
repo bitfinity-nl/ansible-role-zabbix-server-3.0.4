@@ -1,8 +1,12 @@
 ---
-  # tasks: Install zabbix-server version 3.0.2
+  # Title: ansible-role-zabbix-server-3.0.2
   #
+  # Author: Luc Rutten
+  # Version: 1.0
+  # File: tasks/main.yml
   #
-
+  # Description:
+  #  Install Zabbix server 3.0.2 on Ubuntu
 
   - name: "Download & Install deb package"
     apt:

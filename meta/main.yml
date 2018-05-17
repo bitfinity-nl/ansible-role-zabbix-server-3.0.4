@@ -1,0 +1,18 @@
+galaxy_info:
+  author: L. Rutten
+  description: Install Zabbix server 3.0.2 on Ubuntu server
+  company: Bitfinity-NL
+  license: MIT
+  min_ansible_version: 2.4
+  platforms:
+  - name: Ubuntu
+    versions:
+    - xenial
+    - bionic
+  galaxy_tags:
+    - Ubuntu
+    - Bionic
+    - Monitoring
+    - Zabbix
+    - SNMP
+    - Agent

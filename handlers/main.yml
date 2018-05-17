@@ -1,6 +1,12 @@
 ---
-  # handlers: Zabbix Server 3.0.4
+  # Title: ansible-role-zabbix-server-3.0.2
   #
+  # Author: Luc Rutten
+  # Version: 1.0
+  # File: handlers/main.yml
+  #
+  # Description:
+  #  Install Zabbix server 3.0.2 on Ubuntu
 
   - name: "import zabbix-dbschema"
     mysql_db:
