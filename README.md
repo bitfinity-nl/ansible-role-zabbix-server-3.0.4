@@ -1,5 +1,5 @@
-# zbx-server-3.0.4
-Ansible playbook for setting up Zabbix server 3.0.4
+# ansible-role-zabbix-server-3.0.4
+Ansible playbook for setting up Zabbix server 3.0.4 on Ubuntu server
 
 Requirements:
   - Ubuntu 16.04lts
