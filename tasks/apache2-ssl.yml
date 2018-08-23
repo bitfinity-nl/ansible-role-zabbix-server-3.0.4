@@ -1,0 +1,15 @@
+---
+  # Title: Zabbix server Apache2 SSL
+  #
+  # Author: Luc Rutten
+  # File: tasks/apache2-ssl.yml
+  #
+  # Description
+  #   Apache2 SSL support
+
+  - name: "Apache2 enable SSL module"
+    apache2_module:
+      state: present
+      name: ssl
+    notify:
+      - restart apache2
